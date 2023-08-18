@@ -8,18 +8,25 @@ namespace UsuariosApiAlura.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly CadastroService _cadastroService;
+        private readonly UsuarioService _usuarioService;
 
-        public UsuarioController(CadastroService cadastroService)
+        public UsuarioController(UsuarioService cadastroService)
         {
-            _cadastroService = cadastroService;
+            _usuarioService = cadastroService;
         }
 
-        [HttpPost]
+        [HttpPost("cadastro")]
         public async Task<IActionResult> CadastrarUsuario(CreateUsuarioDto dto)
         {
-            await _cadastroService.Cadastrar(dto);
+            await _usuarioService.Cadastrar(dto);
             return Ok("Usuário cadastrado!");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginUsuarioDto dto)
+        {
+            await _usuarioService.Login(dto);
+            return Ok("Usuário autenticado");
         }
     }
 }
